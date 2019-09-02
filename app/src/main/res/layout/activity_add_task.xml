@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddTask"
+    android:orientation="vertical">
+
+    <!--<include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />-->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#FFF"
+        android:elevation="8dp"
+        android:minHeight="?attr/actionBarSize"
+        app:titleTextColor="#000"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/what"
+            android:layout_marginEnd="5dp"
+            android:scaleType="fitXY"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/what"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:minHeight="100dp"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:hint="What do you want to do?"
+            android:textColorHint="@color/grey"
+            android:textColorHighlight="@color/grey"
+            android:textCursorDrawable="@drawable/black_cursor"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/when"
+            android:layout_marginEnd="5dp"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            android:id="@+id/when"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:hint="When do you want to do it?"
+            android:textColorHint="@color/grey"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/time"
+            android:layout_marginEnd="5dp"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            android:id="@+id/what_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:hint="At what time you'd like to do it?"
+            android:textColorHint="@color/grey"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/notify"
+            android:layout_marginEnd="5dp"
+            android:scaleType="fitXY"/>
+
+        <CheckBox
+            android:id="@+id/notify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:text="Would you like to be notified?" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
