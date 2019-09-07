@@ -1,14 +1,15 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,8 +17,9 @@ import java.util.Locale;
 
 public class AddTask extends AppCompatActivity {
 
-    TextView when;
+    TextView what, when;
     Calendar myCalendar;
+    Button addbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,8 @@ public class AddTask extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
 
         myCalendar = Calendar.getInstance();
+
+        what = findViewById(R.id.what);
 
         when= findViewById(R.id.when);
 
@@ -59,6 +63,20 @@ public class AddTask extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 new DatePickerDialog(v.getContext(), date, myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        addbtn = findViewById(R.id.addbtn);
+
+        addbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent replyIntent = new Intent();
+                String task1 = what.getText().toString();
+                replyIntent.putExtra("task", task1);
+                System.out.println("AddTask.java - " + task1);
+                setResult(RESULT_OK, replyIntent);
+                finish();
             }
         });
 

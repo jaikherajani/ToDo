@@ -1,29 +1,32 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
-import android.transition.Explode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
-    TextView toolbar_title;
-    FloatingActionButton addTask;
+    private TextView toolbar_title;
+    private FloatingActionButton addTask;
+    private TaskViewModel TaskViewModel;
+    private CoordinatorLayout clayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +43,36 @@ public class MainActivity extends AppCompatActivity {
 
         addTask = findViewById(R.id.add_task);
 
+        clayout = findViewById(R.id.clayout);
+
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),AddTask.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        final TaskListAdapter adapter = new TaskListAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        TaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+
+        TaskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
+            @Override
+            public void onChanged(List<Task> tasks) {
+                // Update the cached copy of the tasks in the adapter.
+                adapter.setTasks(tasks);
+                if (adapter.getItemCount() != 0) {
+                    clayout.setBackground(null);
+                } else {
+                    clayout.setBackground(getDrawable(R.drawable.bg));
+                }
+            }
+        });
     }
 
     @Override
@@ -66,5 +91,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            Task task = new Task(0, data.getStringExtra("task"), null, null, null, 0);
+            TaskViewModel.insert(task);
+            System.out.println("MAinActivity : " + task.getTask());
+        }
     }
 }
